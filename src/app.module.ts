@@ -12,8 +12,8 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { ExpressAdapter } from '@bull-board/express';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { BasicAuthMiddleware } from './middlewares/basic-auth-middleware';
+import { join } from 'path';
 
-console.log(process.env.REDIS_HOST, process.env.REDIS_PORT)
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -27,17 +27,19 @@ console.log(process.env.REDIS_HOST, process.env.REDIS_PORT)
       useFactory: () => ({
         transport: {
           host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT),
           auth: {
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASS,
           },
-          port: Number(process.env.SMTP_PORT),
+          secure: true,
+          name: 'GOAT',
         },
         defaults: {
           port: Number(process.env.SMTP_PORT),
         },
         template: {
-          dir: '/templates',
+          dir: join(__dirname, 'templates'),
           adapter: new HandlebarsAdapter(),
           options: {
             strict: true,

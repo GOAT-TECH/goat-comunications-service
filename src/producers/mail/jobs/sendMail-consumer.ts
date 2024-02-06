@@ -10,7 +10,7 @@ export class SendMailConsumer {
   @OnQueueActive()
   onActive(job: Job<SendMailDTO>) {
     console.log(
-      `Processing job ${job.id} sending email with email ${job.data.to}...`,
+      `Processing job ${job.id} sending email with email ${job.data.from}...`,
     );
   }
 
@@ -29,7 +29,7 @@ export class SendMailConsumer {
       to: data.to,
       from: data.from,
       subject: data.subject,
-      template: `/templates/${data.template}`,
+      template: `./${data.template}`,
       context: data.context,
     });
   }
