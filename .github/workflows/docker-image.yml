@@ -15,8 +15,5 @@ jobs:
     - name: Set Dotenv
       run: cp /home/ecotech/.env-comunication-service ./.env
       
-    - name: Create migration for deploy
-      run: yarn prisma migrate deploy # docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
     - name: Docker compose for start app
       run: docker-compose up --build -d
