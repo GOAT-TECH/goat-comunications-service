@@ -16,6 +16,5 @@ RUN npm install
 FROM base AS builder
 WORKDIR /app
 
-EXPOSE 6000
-EXPOSE 80
+EXPOSE 3003
 COPY --from=deps /app/node_modules ./node_modules

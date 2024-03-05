@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+    - name: Yarn all data
+      run: yarn 
+
+    - name: Set Dotenv
+      run: cp /home/ecotech/.env-comunication-service ./.env
+      
+    - name: Create migration for deploy
+      run: yarn prisma migrate deploy # docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Docker compose for start app
+      run: docker-compose up --build -d
