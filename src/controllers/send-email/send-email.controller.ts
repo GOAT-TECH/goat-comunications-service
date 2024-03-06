@@ -8,7 +8,7 @@ export class SendEmailController {
 
   @Post('/')
   async sendMail(@Body() email: SendMailDTO) {
-    console.log("chamou");
+    console.log('chamou');
     this.mailService.sendMail(email);
   }
 }
